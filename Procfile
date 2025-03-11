@@ -1,0 +1,1 @@
+web: gunicorn dashboard_electionresults_render:server
