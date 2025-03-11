@@ -68,7 +68,7 @@ CHECKLIST_STYLE = {"margin-bottom": "10px", "font-weight": "bold"}
 CARD_STYLE = {"padding": "10px", "border-radius": "5px", "background-color": "#f8f9fa"}
 
 #%%
-# 1. Initialize the Flask server and Dash app
+
 server = Flask(__name__)  # Flask app
 app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])  # Dash app tied to Flask server
 
@@ -187,8 +187,11 @@ def update_chart(selected_stimme, selected_regions, selected_parties, selected_y
 
 
 #%%
-# 3. Start the app
-if __name__ == "__main__":
-    print("Starting Dash app...")
-    port = int(os.environ.get("PORT", 8080))  # Get Render's PORT
-    app.run_server(debug=False, host="0.0.0.0", port=port)  # 0.0.0.0 makes it accessible from the internet
+# If you are running locally, you can still use the following:
+# if __name__ == "__main__":
+#     print("Starting Dash app...")
+#     port = int(os.environ.get("PORT", 8080))  # Get Render's PORT
+#     app.run_server(debug=False, host="0.0.0.0", port=port)  # 0.0.0.0 makes it accessible from the internet
+
+# Gunicorn will now run this `server` object
+server = app.server  # This is the WSGI app Gunicorn expects
